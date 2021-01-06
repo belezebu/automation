@@ -1,13 +1,12 @@
-import {Request, Router} from 'express';
 import {EOL} from 'os';
 import neatCsv from 'neat-csv'
-import {Fields, File, Files} from "formidable";
 import {readFile as fsReadFile} from 'fs'
 import {promisify} from 'util'
+import {APIGatewayProxyHandler} from "aws-lambda";
+import {APIGatewayProxyEvent, APIGatewayProxyResult} from "aws-lambda/trigger/api-gateway-proxy";
+import Busboy from 'busboy';
 
 const readFile = promisify(fsReadFile)
-
-const router = Router();
 const separator = ";"
 
 const notEmpty = <TValue>(value: TValue | null | undefined): value is TValue => {
@@ -65,15 +64,16 @@ const buildItem = ({dossierId, designation, unit, quantity, unitCost, totalCost,
 
 }
 
-const buildLocation = async (location: string []) => {
-    const number = location[0]?.split(separator)[0]
-    const [name, type, size, unitMeasure] = location?.[1]?.split(separator).filter(isString)
+const buildLocation = async (location: string) => {
+    const locationInfo = location.split(EOL)
+    const number = locationInfo[0]?.split(separator)[0]
+    const [name, type, size, unitMeasure] = locationInfo?.[1]?.split(separator).filter(isString)
 
-    if (location.length < 0) {
-        return location
+    if (locationInfo.length < 0) {
+        return locationInfo
     }
 
-    const rawItems = await neatCsv(location.join(EOL), {
+    const rawItems = await neatCsv(locationInfo.join(EOL), {
         separator,
         skipLines: 3,
         headers: ['dossierId', 'designation', 'unit', 'quantity', 'unitCost', 'totalCost', 'vat', 'totalCostWithVat']
@@ -92,7 +92,7 @@ const buildLocation = async (location: string []) => {
 }
 
 const buildPersonalInformation = (lines: string []) => {
-    return ["name" + lines[0], lines[1]].map(line => line?.split(separator)
+    return ["name;" + lines[0], lines[1]].map(line => line?.split(separator)
         .filter(isString)
         .map(line => line.trim()))
         .filter(notEmpty)
@@ -103,18 +103,55 @@ const buildPersonalInformation = (lines: string []) => {
 
 }
 
-router.post('/', async (req: Request, res, next) => {
-    const {files} = req.body as Request & { fields: Fields, files: Files }
-    const file = Object.values(files).shift() as File
+type File = {
+    file?: Buffer,
+    filename?: string,
+    contentType?: string
+}
 
+const parseUploadedFile = ({body, headers, isBase64Encoded}: APIGatewayProxyEvent):Promise<File> => new Promise((resolve, reject) => {
+    const contentType = headers['Content-Type'] || headers['content-type'];
+    const busboy = new Busboy({
+        headers: {
+            'content-type': contentType,
+        }
+    });
+
+    const result: File = {};
+
+    busboy.on('file', (fieldname, file, filename, encoding, mimetype) => {
+        file.on('data', data => {
+            if(data)
+                result.file += data;
+        })
+
+        file.on('end', () => {
+            result.filename = filename;
+            result.contentType = mimetype;
+        });
+    });
+
+    busboy.on('error', (error: any) => reject(`Parse error: ${error}`));
+    busboy.on('finish', () => resolve(result));
+
+    busboy.write(body || '', 'utf-8');
+    busboy.end();
+});
+
+const documentsHandler: APIGatewayProxyHandler = async (event, context) => {
+    const { file } = await parseUploadedFile(event)
     if (!file) {
         const errorMessage = 'File does not exists'
-        res.sendStatus(404)
-        res.send({errorMessage})
-        return
+        return {
+            statusCode: 404,
+            headers: {'Access-Control-Allow-Origin': '*'},
+            body: JSON.stringify({errorMessage})
+        };
     }
 
-    const data = await readFile( file.path, 'utf8')
+    // @ts-ignore
+    const data = file.toString('latin1')
+    console.log({data})
     const lines = data.split(EOL)
     const personalInformation = buildPersonalInformation(lines)
     const firstLocal = data.indexOf("Local")
@@ -122,11 +159,17 @@ router.post('/', async (req: Request, res, next) => {
     const locations = data.substring(firstLocal, localEnding).split("Local")
         .map(local => local.trim())
         .filter(isString)
-        .map(location => location.split(EOL))
         .map(location => buildLocation(location))
 
     const parsedLocations = await Promise.all(locations)
-    res.send({locations: parsedLocations, personalInformation})
-});
 
-export default router;
+    console.log( {locations: parsedLocations, personalInformation}  )
+
+    return {
+        statusCode: 200,
+        headers: {'Access-Control-Allow-Origin': '*'},
+        body: JSON.stringify({locations: parsedLocations, personalInformation})
+    } as APIGatewayProxyResult;
+}
+
+export const handler = documentsHandler;
