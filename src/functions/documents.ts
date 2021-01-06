@@ -121,8 +121,7 @@ const parseUploadedFile = ({body, headers, isBase64Encoded}: APIGatewayProxyEven
 
     busboy.on('file', (fieldname, file, filename, encoding, mimetype) => {
         file.on('data', data => {
-            if(data)
-                result.file += data;
+            result.file += data;
         })
 
         file.on('end', () => {
