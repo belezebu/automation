@@ -143,9 +143,7 @@ const documentsHandler: APIGatewayProxyHandler = async (event, context) => {
             body: JSON.stringify({errorMessage})
         };
     }
-
-    // @ts-ignore
-    const data = file.toString('latin1')
+    const data = file.toString()
     console.log({data})
     const lines = data.split(EOL)
     const personalInformation = buildPersonalInformation(lines)
