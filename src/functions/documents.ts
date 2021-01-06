@@ -1,12 +1,9 @@
 import {EOL} from 'os';
 import neatCsv from 'neat-csv'
-import {readFile as fsReadFile} from 'fs'
-import {promisify} from 'util'
 import {APIGatewayProxyHandler} from "aws-lambda";
 import {APIGatewayProxyEvent, APIGatewayProxyResult} from "aws-lambda/trigger/api-gateway-proxy";
 import Busboy from 'busboy';
 
-const readFile = promisify(fsReadFile)
 const separator = ";"
 
 const notEmpty = <TValue>(value: TValue | null | undefined): value is TValue => {
@@ -133,7 +130,7 @@ const parseUploadedFile = ({body, headers, isBase64Encoded}: APIGatewayProxyEven
     busboy.on('error', (error: any) => reject(`Parse error: ${error}`));
     busboy.on('finish', () => resolve(result));
 
-    busboy.write(body || '', 'utf-8');
+    busboy.write(body || '',isBase64Encoded ? 'base64' : 'utf-8');
     busboy.end();
 });
 
