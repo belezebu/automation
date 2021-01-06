@@ -155,9 +155,6 @@ const documentsHandler: APIGatewayProxyHandler = async (event, context) => {
         .map(location => buildLocation(location))
 
     const parsedLocations = await Promise.all(locations)
-
-    console.log( {locations: parsedLocations, personalInformation}  )
-
     return {
         statusCode: 200,
         headers: {'Access-Control-Allow-Origin': '*'},
