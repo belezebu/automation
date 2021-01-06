@@ -134,7 +134,6 @@ const parseUploadedFile = ({body, headers, isBase64Encoded}: APIGatewayProxyEven
 });
 
 const documentsHandler: APIGatewayProxyHandler = async (event, context) => {
-    console.log(JSON.stringify(event))
     const { file } = await parseUploadedFile(event)
     if (!file) {
         const errorMessage = 'File does not exists'
