@@ -89,9 +89,8 @@ const buildLocation = async (location: string) => {
 }
 
 const buildPersonalInformation = (lines: string []) => {
-    return ["name;" + lines[0], lines[1]].map(line => line?.split(separator)
-        .filter(isString)
-        .map(line => line.trim()))
+    return ["name;" + lines[0], lines[1]]
+        .map(line => line?.split(separator).filter(value => isString(value) && value !== 'undefined').map(line => line.trim()))
         .filter(notEmpty)
         .reduce<Record<string, string>>((accumulator, [key, value]) => {
             accumulator[key.toLowerCase()] = value
