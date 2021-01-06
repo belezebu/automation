@@ -133,8 +133,7 @@ var parseUploadedFile = function (_a) {
         var result = {};
         busboy.on('file', function (fieldname, file, filename, encoding, mimetype) {
             file.on('data', function (data) {
-                if (data)
-                    result.file += data;
+                result.file += data;
             });
             file.on('end', function () {
                 result.filename = filename;
