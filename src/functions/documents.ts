@@ -88,9 +88,10 @@ const buildLocation = async (location: string) => {
     }
 }
 
-const buildPersonalInformation = (lines: string []) => {
+const buildPersonalInformation = (data: string) => {
+    const lines = data.split(EOL)
     return ["name;" + lines[0], lines[1]]
-        .map(line => line?.split(separator).filter(value => isString(value) && value !== 'undefined').map(line => line.trim()))
+        .map(line => line?.split(separator).map(line => line.trim()).filter(value => isString(value) && value !== 'undefined'))
         .filter(notEmpty)
         .reduce<Record<string, string>>((accumulator, [key, value]) => {
             accumulator[key.toLowerCase()] = value
@@ -144,9 +145,7 @@ const documentsHandler: APIGatewayProxyHandler = async (event, context) => {
         };
     }
     const data = file.toString()
-    console.log({data})
-    const lines = data.split(EOL)
-    const personalInformation = buildPersonalInformation(lines)
+    const personalInformation = buildPersonalInformation(data)
     const firstLocal = data.indexOf("Local")
     const localEnding = data.indexOf("TOTAL PLANTAÇÕES")
     const locations = data.substring(firstLocal, localEnding).split("Local")

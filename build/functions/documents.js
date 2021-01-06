@@ -42,10 +42,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.handler = void 0;
 var os_1 = require("os");
 var neat_csv_1 = __importDefault(require("neat-csv"));
-var fs_1 = require("fs");
-var util_1 = require("util");
 var busboy_1 = __importDefault(require("busboy"));
-var readFile = util_1.promisify(fs_1.readFile);
 var separator = ";";
 var notEmpty = function (value) {
     return value !== null && value !== undefined;
@@ -112,8 +109,10 @@ var buildLocation = function (location) { return __awaiter(void 0, void 0, void 
         }
     });
 }); };
-var buildPersonalInformation = function (lines) {
-    return ["name;" + lines[0], lines[1]].map(function (line) { return line === null || line === void 0 ? void 0 : line.split(separator).filter(isString).map(function (line) { return line.trim(); }); })
+var buildPersonalInformation = function (data) {
+    var lines = data.split(os_1.EOL);
+    return ["name;" + lines[0], lines[1]]
+        .map(function (line) { return line === null || line === void 0 ? void 0 : line.split(separator).map(function (line) { return line.trim(); }).filter(function (value) { return isString(value) && value !== 'undefined'; }); })
         .filter(notEmpty)
         .reduce(function (accumulator, _a) {
         var key = _a[0], value = _a[1];
@@ -142,12 +141,12 @@ var parseUploadedFile = function (_a) {
         });
         busboy.on('error', function (error) { return reject("Parse error: " + error); });
         busboy.on('finish', function () { return resolve(result); });
-        busboy.write(body || '', 'utf-8');
+        busboy.write(body || '', isBase64Encoded ? 'base64' : 'utf-8');
         busboy.end();
     });
 };
 var documentsHandler = function (event, context) { return __awaiter(void 0, void 0, void 0, function () {
-    var file, errorMessage, data, lines, personalInformation, firstLocal, localEnding, locations, parsedLocations;
+    var file, errorMessage, data, personalInformation, firstLocal, localEnding, locations, parsedLocations;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0: return [4 /*yield*/, parseUploadedFile(event)];
@@ -161,10 +160,8 @@ var documentsHandler = function (event, context) { return __awaiter(void 0, void
                             body: JSON.stringify({ errorMessage: errorMessage })
                         }];
                 }
-                data = file.toString('latin1');
-                console.log({ data: data });
-                lines = data.split(os_1.EOL);
-                personalInformation = buildPersonalInformation(lines);
+                data = file.toString();
+                personalInformation = buildPersonalInformation(data);
                 firstLocal = data.indexOf("Local");
                 localEnding = data.indexOf("TOTAL PLANTAÇÕES");
                 locations = data.substring(firstLocal, localEnding).split("Local")
@@ -174,7 +171,6 @@ var documentsHandler = function (event, context) { return __awaiter(void 0, void
                 return [4 /*yield*/, Promise.all(locations)];
             case 2:
                 parsedLocations = _a.sent();
-                console.log({ locations: parsedLocations, personalInformation: personalInformation });
                 return [2 /*return*/, {
                         statusCode: 200,
                         headers: { 'Access-Control-Allow-Origin': '*' },
