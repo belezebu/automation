@@ -92,6 +92,8 @@ const buildLocation = async (location: string) => {
         .filter(({designation}) => isString(designation) && designation !== 'Total')
         .map(buildItem)
 
+    console.log('Successfully build location', { name })
+
     return {
         number,
         name,
@@ -171,8 +173,6 @@ const documentsHandler: APIGatewayProxyHandler = async (event, context) => {
         .map(location => buildLocation(location))
 
     const parsedLocations = await Promise.all(locations)
-
-    console.log({parsedLocations})
     return {
         statusCode: 200,
         headers: {'Access-Control-Allow-Origin': '*'},

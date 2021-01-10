@@ -138,46 +138,43 @@ chrome.extension.onMessage.addListener((msg, sender, sendResponse) => {
     }
   }
 
-  function getDensity({ size, items}) {
+  function getDensity({ area, items}) {
       const plantsNumber = items[11][0].quantity
-      return Math.floor(plantsNumber / size)
+      return Math.floor(plantsNumber / area)
   }
 
-  function fillLocationInformation( { name, type, size: rawSize, items }) {
-    const size = parseFloat(rawSize.replace(",","."))
-    changeText(itemToFormOption['area']['input']['id'], size)
-    changeText(itemToFormOption['density']['input']['id'], getDensity({items, size }))
+  function fillLocationInformation( { number, name, type, isNew, plantType, slope, watering, area, items}) {
+    changeText(itemToFormOption['area']['input']['id'], area)
+    changeText(itemToFormOption['density']['input']['id'], getDensity({items, area }))
   }
 
-  function fillItemsInformation({ items, size:rawSize }) {
+  function fillItemsInformation({ items, area }) {
 
-    const size = parseFloat(rawSize.replace(",","."))
-
-    function fillItem({ dossierId }, size) {
+    function fillItem({ dossierId }, area) {
       changeCheckbox(itemToFormOption[dossierId].checkInput.id)
-      changeText(itemToFormOption[dossierId].areaInput.id, size)
+      changeText(itemToFormOption[dossierId].areaInput.id, area)
     }
 
     Object.entries(items).forEach( ( [dossierId, item ]) => {
 
       switch (dossierId) {
         case "13":
-          fillItem(item[0], size);
+          fillItem(item[0], area);
           break;
         case "16":
-          fillItem(item[0], size)
+          fillItem(item[0], area)
           break;
         case "19":
-          fillItem(item[0], size)
+          fillItem(item[0], area)
           break;
         case "20":
-          fillItem(item[0], size)
+          fillItem(item[0], area)
           break;
         case "23":
-          fillItem(item[0], size)
+          fillItem(item[0], area)
           break;
         case "24":
-          fillItem(item[0], size)
+          fillItem(item[0], area)
           break;
       }
 
@@ -190,10 +187,10 @@ chrome.extension.onMessage.addListener((msg, sender, sendResponse) => {
     // changeSelect(title, "mr");
     chrome.storage.local.get(['location'],
       ({location}) => {
-        const {name, type, size, items} = JSON.parse(location)
-        console.log({name, type, size, items})
-        fillLocationInformation({ name, type, size, items })
-        fillItemsInformation({items, size})
+        const {number, name, type, isNew, plantType, slope, watering, area, items} = JSON.parse(location)
+        console.log({number, name, type, isNew, plantType, slope, watering, area, items})
+        fillLocationInformation({number, name, type, isNew, plantType, slope, watering, area, items})
+        fillItemsInformation({items, area})
       })
     /*const enterAddressManually = getElement("manual-lookup-form");
     click(enterAddressManually);
@@ -219,11 +216,7 @@ chrome.extension.onMessage.addListener((msg, sender, sendResponse) => {
       dispatchEvent(form, "submit");
     }, 100);*/
   }
-
-  console.log({content: 'XXXXXX', msg})
-
   if (msg.action === "Fill-Form") {
     fillForm();
   }
-})
-;
+});
