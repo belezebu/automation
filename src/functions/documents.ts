@@ -39,29 +39,18 @@ type TotalItem = {
 
 type Item = DossierItem | TotalItem
 
-const buildItem = ({dossierId, designation, unit, quantity, unitCost, totalCost, vat, totalCostWithVat}: Record<string, string>): Item => {
-    if (designation === 'Total') {
-        return {
-            designation,
-            dossierId: '1',
-            totalCost: parseFloat(sanitizeInput(totalCost)),
-            totalCostWithVat: parseFloat(sanitizeInput(totalCostWithVat))
-        }
-    }
-    return {
+const buildLocation = async (location: string) => {
+    const buildItem = ({dossierId, designation, unit, quantity, unitCost, totalCost, vat, totalCostWithVat}: Record<string, string>): Item => ({
         dossierId,
         designation,
         unit,
         quantity: parseInt(quantity),
         unitCost: parseFloat(sanitizeInput(unitCost)),
         totalCost: parseFloat(sanitizeInput(totalCost)),
-        vat: round(parseFloat(sanitizeInput(vat)) / 100),
+        vat: parseFloat(sanitizeInput(vat)),
         totalCostWithVat: parseFloat(sanitizeInput(totalCostWithVat)),
-    }
+    })
 
-}
-
-const buildLocation = async (location: string) => {
     const locationInfo = location.split(EOL)
     const number = locationInfo[0]?.split(separator)[0]
     const [name, type, size, unitMeasure] = locationInfo?.[1]?.split(separator).filter(isString)
@@ -76,13 +65,13 @@ const buildLocation = async (location: string) => {
         headers: ['dossierId', 'designation', 'unit', 'quantity', 'unitCost', 'totalCost', 'vat', 'totalCostWithVat']
     })
     const items = rawItems
-        .filter(({designation}) => isString(designation))
+        .filter(({designation}) => isString(designation) && designation !== 'Total')
         .map(buildItem)
     return {
         number,
         name,
         type,
-        size,
+        size: parseFloat(sanitizeInput(size)),
         unitMeasure,
         items
     }
@@ -106,7 +95,7 @@ type File = {
     contentType?: string
 }
 
-const parseUploadedFile = ({body, headers, isBase64Encoded}: APIGatewayProxyEvent):Promise<File> => new Promise((resolve, reject) => {
+const parseUploadedFile = ({body, headers, isBase64Encoded}: APIGatewayProxyEvent): Promise<File> => new Promise((resolve, reject) => {
     const contentType = headers['Content-Type'] || headers['content-type'];
     const busboy = new Busboy({
         headers: {
@@ -130,12 +119,12 @@ const parseUploadedFile = ({body, headers, isBase64Encoded}: APIGatewayProxyEven
     busboy.on('error', (error: any) => reject(`Parse error: ${error}`));
     busboy.on('finish', () => resolve(result));
 
-    busboy.write(body || '',isBase64Encoded ? 'base64' : 'utf-8');
+    busboy.write(body || '', isBase64Encoded ? 'base64' : 'utf-8');
     busboy.end();
 });
 
 const documentsHandler: APIGatewayProxyHandler = async (event, context) => {
-    const { file } = await parseUploadedFile(event)
+    const {file} = await parseUploadedFile(event)
     if (!file) {
         const errorMessage = 'File does not exists'
         return {
