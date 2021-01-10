@@ -108,3 +108,5 @@ dist
 .idea
 
 chrome-extension/.DS_Store
+
+build

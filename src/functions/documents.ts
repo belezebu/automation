@@ -18,6 +18,17 @@ const sanitizeInput = (value: string) => value.replace(/[ €%]/g, "").replace("
 
 const round = (value: number) => Math.round(value * 100) / 100
 
+type Location = {
+    number: string
+    name: string
+    type: string
+    isNew: boolean
+    plantType: string
+    slope: number
+    watering: boolean
+    area: number
+}
+
 type BaseItem = {
     dossierId: string,
     designation: string,
@@ -40,6 +51,27 @@ type TotalItem = {
 type Item = DossierItem | TotalItem
 
 const buildLocation = async (location: string) => {
+    const buildlocationInformation = async (location: string): Promise<Location>  => {
+        const locationLines = location.split(EOL)
+        const number = locationLines?.[0]?.split(separator)[0]
+        const locationInformation = [ locationLines[0], locationLines[1]].join(EOL)
+        const rawItems = await neatCsv(locationInformation, {
+            separator,
+            skipLines: 1,
+            headers: ['', 'name', 'type', 'isNew', 'plantType', 'slope', 'watering', 'area']
+        })
+        const { name, type, isNew, plantType, slope, watering, area } = rawItems[0]
+        return {
+            number,
+            name,
+            type,
+            isNew: isNew === 'Sim' ,
+            plantType,
+            watering: watering === 'Sim',
+            slope: parseInt(slope),
+            area: parseFloat(sanitizeInput(area))
+        }
+    }
     const buildItem = ({dossierId, designation, unit, quantity, unitCost, totalCost, vat, totalCostWithVat}: Record<string, string>): Item => ({
         dossierId,
         designation,
@@ -47,19 +79,11 @@ const buildLocation = async (location: string) => {
         quantity: parseInt(quantity),
         unitCost: parseFloat(sanitizeInput(unitCost)),
         totalCost: parseFloat(sanitizeInput(totalCost)),
-        vat: parseFloat(sanitizeInput(vat)),
+        vat: parseInt(sanitizeInput(vat)),
         totalCostWithVat: parseFloat(sanitizeInput(totalCostWithVat)),
     })
-
-    const locationInfo = location.split(EOL)
-    const number = locationInfo[0]?.split(separator)[0]
-    const [name, type, size, unitMeasure] = locationInfo?.[1]?.split(separator).filter(isString)
-
-    if (locationInfo.length < 0) {
-        return locationInfo
-    }
-
-    const rawItems = await neatCsv(locationInfo.join(EOL), {
+    const { number, name, type, isNew, plantType, slope, watering, area } =  await buildlocationInformation(location);
+    const rawItems = await neatCsv(location, {
         separator,
         skipLines: 3,
         headers: ['dossierId', 'designation', 'unit', 'quantity', 'unitCost', 'totalCost', 'vat', 'totalCostWithVat']
@@ -67,12 +91,16 @@ const buildLocation = async (location: string) => {
     const items = rawItems
         .filter(({designation}) => isString(designation) && designation !== 'Total')
         .map(buildItem)
+
     return {
         number,
         name,
         type,
-        size: parseFloat(sanitizeInput(size)),
-        unitMeasure,
+        isNew,
+        plantType,
+        slope,
+        watering,
+        area,
         items
     }
 }
@@ -143,6 +171,8 @@ const documentsHandler: APIGatewayProxyHandler = async (event, context) => {
         .map(location => buildLocation(location))
 
     const parsedLocations = await Promise.all(locations)
+
+    console.log({parsedLocations})
     return {
         statusCode: 200,
         headers: {'Access-Control-Allow-Origin': '*'},
