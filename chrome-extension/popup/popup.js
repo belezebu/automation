@@ -20,7 +20,8 @@ function onSelectFile() {
   async function upload(file) {
     const formData = new FormData();
     formData.append(file.name, file);
-    const baseUrl = 'https://peaceful-mirzakhani-e7f2ff.netlify.app/.netlify/functions/documents'
+    const baseUrl = 'http://localhost:8080/.netlify/functions/documents'
+    //const baseUrl = 'https://peaceful-mirzakhani-e7f2ff.netlify.app/.netlify/functions/documents'
     const response = await fetch(baseUrl, {
       method: 'POST',
       body: formData

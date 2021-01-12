@@ -3,7 +3,7 @@ import {APIGatewayProxyHandler} from "aws-lambda";
 import {APIGatewayProxyEvent, APIGatewayProxyResult} from "aws-lambda/trigger/api-gateway-proxy";
 import Busboy from 'busboy';
 
-const separator = ";"
+const separator = ","
 const EOL = "\n"
 
 const notEmpty = <TValue>(value: TValue | null | undefined): value is TValue => {
@@ -148,6 +148,7 @@ const parseUploadedFile = ({body, headers, isBase64Encoded}: APIGatewayProxyEven
     busboy.on('error', (error: any) => reject(`Parse error: ${error}`));
     busboy.on('finish', () => resolve(result));
 
+    console.log({ isBase64Encoded })
     busboy.write(body || '', isBase64Encoded ? 'base64' : 'utf-8');
     busboy.end();
 });
@@ -164,6 +165,8 @@ const documentsHandler: APIGatewayProxyHandler = async (event, context) => {
     }
     const data = file.toString()
     const personalInformation = buildPersonalInformation(data)
+
+    console.log({ data })
     const firstLocal = data.indexOf("Local")
     const localEnding = data.indexOf("TOTAL PLANTAÇÕES")
     const locations = data.substring(firstLocal, localEnding).split("Local")
