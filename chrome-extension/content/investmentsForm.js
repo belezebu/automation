@@ -38,9 +38,9 @@ function fillItem({ dossierId, items, area } , calculateTotal ) {
   const { unitPrice, quantity, vat } = calculateTotal({ items, area })
   const formItem = mapDossierIdToInvestmentItem[dossierId]
   console.log('Filling Investment Item' , { dossierId, formItem })
-  changeText(itemToInvestmentForm[formItem]['unitPrice']['id'], unitPrice)
+  changeText(itemToInvestmentForm[formItem]['unitPrice']['id'], unitPrice.toFixed(2))
   if (itemToInvestmentForm[formItem]['quantity']) {
-    changeText(itemToInvestmentForm[formItem]['quantity']['id'], quantity)
+    changeText(itemToInvestmentForm[formItem]['quantity']['id'], quantity.toFixed(3))
   }
   changeText(itemToInvestmentForm[formItem]['vat']['id'], mapVatToForm[vat])
   changeText(itemToInvestmentForm[formItem]['investmentDate']['id'], itemToInvestmentForm[formItem]['investmentDate']['value'])

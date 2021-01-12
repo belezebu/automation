@@ -31,20 +31,20 @@ function fillDensity({isNew, items, area}) {
 function fillLocationInformation({isNew, plantType, slope, watering, area, items, waterCounters, waterCatchment, plantationYear}) {
   changeText(locationInformationToFormOption["DECLIVE_TERRENO"]['input']['id'], slope)
   changeSelection(locationInformationToFormOption[locationProperties.TIPO_DE_HORIZONTE]['selectInput']['id'], isNew ? TIPO_DE_HORIZONTE.COM_HORIZONTES_COMPACTOS_OU_DUROS : TIPO_DE_HORIZONTE.SEM_HORIZONTES_COMPACTOS_OU_DUROS)
-  changeText(locationInformationToFormOption[locationProperties.AREA]['input']['id'], area)
+  changeText(locationInformationToFormOption[locationProperties.AREA]['input']['id'], area.toFixed(3))
   changeSelection(locationInformationToFormOption[locationProperties.ESPECIE]['selectInput']['id'], plantTypeToValue[plantType])
   fillDensity({isNew, items, area})
   changeRadio(locationInformationToFormOption[locationProperties.NOVA_PLANTACAO]['radioInput'][isNew ? "yes" : "no"]["id"])
   changeText(locationInformationToFormOption[locationProperties.ANO_PLANTACAO]['input']['id'], plantationYear)
   fillAgricultureType({isNew, watering})
-  changeText(locationInformationToFormOption[locationProperties.AREA_REGADA]['input']['id'], area)
+  changeText(locationInformationToFormOption[locationProperties.AREA_REGADA]['input']['id'], area.toFixed(3))
   fillWatering({watering, area, waterCounters, waterCatchment})
 }
 
 function fillItemsInformation({items: investmentItemsById, area}) {
   function fillItem(area, formId) {
     changeCheckbox(itemToFormOption[formId].checkInput.id)
-    changeText(itemToFormOption[formId].areaInput.id, area)
+    changeText(itemToFormOption[formId].areaInput.id, area.toFixed(3))
   }
 
   function fillItemQuantity({items, area, formId}, mapper) {
@@ -52,7 +52,7 @@ function fillItemsInformation({items: investmentItemsById, area}) {
     const quantity = items.reduce((acc, {quantity}) => {
       return acc + mapper(quantity)
     }, 0)
-    changeText(itemToFormOption[formId].quantityInput.id, quantity)
+    changeText(itemToFormOption[formId].quantityInput.id, quantity.toFixed(2))
   }
 
   Object.entries(investmentItemsById).forEach(([dossierId, items]) => {
