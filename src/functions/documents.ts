@@ -26,6 +26,9 @@ type Location = {
     plantType: string
     slope: number
     watering: boolean
+    waterCounters: string
+    waterCatchment: string
+    plantationYear: string
     area: number
 }
 
@@ -60,7 +63,7 @@ const buildLocation = async (location: string) => {
             skipLines: 1,
             headers: ['', 'name', 'type', 'slope', 'area', 'plantType', 'isNew', 'plantationYear', 'watering', 'waterCounters', 'waterCatchment']
         })
-        const { name, type, isNew, plantType, slope, watering, area } = rawItems[0]
+        const { name, type, isNew, plantType, slope, watering, area, waterCounters, waterCatchment, plantationYear } = rawItems[0]
         return {
             number,
             name,
@@ -69,7 +72,10 @@ const buildLocation = async (location: string) => {
             plantType,
             watering: watering === 'Sim',
             slope: parseInt(slope),
-            area: parseFloat(sanitizeInput(area))
+            area: parseFloat(sanitizeInput(area)),
+            waterCounters,
+            waterCatchment,
+            plantationYear
         }
     }
     const buildItem = ({dossierId, designation, unit, quantity, unitCost, totalCost, vat, totalCostWithVat}: Record<string, string>): Item => ({

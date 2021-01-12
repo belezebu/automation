@@ -12,10 +12,12 @@ function fillAgricultureType({isNew, watering}) {
   }
 }
 
-function fillWatering({ watering, area}) {
+function fillWatering({watering, area, waterCounter, waterCatchment}) {
   if (watering) {
     changeSelection(locationInformationToFormOption[locationProperties.SISTEMA_REGA]['selectInput']["id"], GOTEJADORES_AUTOCOMPENSANTES)
     changeText(locationInformationToFormOption[locationProperties.CONSUMO_ANO]['input']["id"], area * GOTEJADORES_CONSUMO_ANO)
+    changeText(locationInformationToFormOption[locationProperties.NUMERO_CONTADORES]['input']["id"], waterCounter)
+    changeText(locationInformationToFormOption[locationProperties.NUMERO_CAPTACOES]['input']["id"], waterCatchment)
     changeCheckbox(itemToFormOption[locationSettings.REGA]["checkInput"]["id"])
   }
 }
@@ -26,17 +28,17 @@ function fillDensity({isNew, items, area}) {
   }
 }
 
-function fillLocationInformation({number, name, type, isNew, plantType, slope, watering, area, items}) {
+function fillLocationInformation({isNew, plantType, slope, watering, area, items, waterCounter, waterCatchment, plantationYear}) {
   changeText(locationInformationToFormOption["DECLIVE_TERRENO"]['input']['id'], slope)
   changeSelection(locationInformationToFormOption[locationProperties.TIPO_DE_HORIZONTE]['selectInput']['id'], isNew ? TIPO_DE_HORIZONTE.COM_HORIZONTES_COMPACTOS_OU_DUROS : TIPO_DE_HORIZONTE.SEM_HORIZONTES_COMPACTOS_OU_DUROS)
   changeText(locationInformationToFormOption[locationProperties.AREA]['input']['id'], area)
   changeSelection(locationInformationToFormOption[locationProperties.ESPECIE]['selectInput']['id'], plantTypeToValue[plantType])
   fillDensity({isNew, items, area})
   changeRadio(locationInformationToFormOption[locationProperties.NOVA_PLANTACAO]['radioInput'][isNew ? "yes" : "no"]["id"])
-  changeText(locationInformationToFormOption[locationProperties.ANO_PLANTACAO]['input']['id'], '2021')
+  changeText(locationInformationToFormOption[locationProperties.ANO_PLANTACAO]['input']['id'], plantationYear)
   fillAgricultureType({isNew, watering})
   changeText(locationInformationToFormOption[locationProperties.AREA_REGADA]['input']['id'], area)
-  fillWatering({watering, area})
+  fillWatering({watering, area, waterCounter, waterCatchment})
 }
 
 function fillItemsInformation({items: investmentItemsById, area}) {
@@ -47,7 +49,7 @@ function fillItemsInformation({items: investmentItemsById, area}) {
 
   function fillItemQuantity({items, area, formId}, mapper) {
     fillItem(items[0], area, formId)
-    const quantity = items.reduce( (acc, { quantity } ) => {
+    const quantity = items.reduce((acc, {quantity}) => {
       return acc + mapper(quantity)
     }, 0)
     changeText(itemToFormOption[formId].quantityInput.id, quantity)
@@ -83,9 +85,9 @@ function fillItemsInformation({items: investmentItemsById, area}) {
   })
 }
 
-function fillInitialForm({location}) {
-  const {number, name, type, isNew, plantType, slope, watering, area, items} = JSON.parse(location)
-  console.log({number, name, type, isNew, plantType, slope, watering, area, items})
-  fillLocationInformation({number, name, type, isNew, plantType, slope, watering, area: 0.144, items})
-  fillItemsInformation({items, area: 0.144})
+function fillInitialForm({location: rawLocation}) {
+  const location = JSON.parse(rawLocation)
+  console.log({location})
+  fillLocationInformation(location)
+  fillItemsInformation(location)
 }
