@@ -42,13 +42,13 @@ function fillLocationInformation({isNew, plantType, slope, watering, area, items
 }
 
 function fillItemsInformation({items: investmentItemsById, area}) {
-  function fillItem({dossierId}, area, formId) {
+  function fillItem(area, formId) {
     changeCheckbox(itemToFormOption[formId].checkInput.id)
     changeText(itemToFormOption[formId].areaInput.id, area)
   }
 
   function fillItemQuantity({items, area, formId}, mapper) {
-    fillItem(items[0], area, formId)
+    fillItem(area, formId)
     const quantity = items.reduce((acc, {quantity}) => {
       return acc + mapper(quantity)
     }, 0)
@@ -57,6 +57,7 @@ function fillItemsInformation({items: investmentItemsById, area}) {
 
   Object.entries(investmentItemsById).forEach(([dossierId, items]) => {
     const formId = mapDossierIdToSettingsFormId[dossierId]
+    console.log('Filling Form Item' , { dossierId, formId })
     switch (formId) {
       case locationSettings.FERTILIZACAO:
       case locationSettings.DESMATACAO:
@@ -69,7 +70,7 @@ function fillItemsInformation({items: investmentItemsById, area}) {
       case locationSettings.SURRIBA:
       case locationSettings.TERRACEAMENTO:
       case locationSettings.ESTRUTURA_ANTI_GRANIZO_GEADA:
-        fillItem(items[0], area, formId)
+        fillItem(area, formId)
         break;
       case locationSettings.CORRECAO_SOLO:
         fillItemQuantity({items, area, formId}, function (quantity) {
@@ -87,7 +88,7 @@ function fillItemsInformation({items: investmentItemsById, area}) {
 
 function fillInitialForm({location: rawLocation}) {
   const location = JSON.parse(rawLocation)
-  console.log({location})
-  fillLocationInformation({...location, area: 0.144})
-  fillItemsInformation({...location, area: 0.144})
+  console.log('Starting to fill the location information', { location})
+  fillLocationInformation(location)
+  fillItemsInformation(location)
 }

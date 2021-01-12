@@ -25,6 +25,6 @@ const changeRadio = (id) => {
   radioInput.click()
 }
 
-const round = (value) => {
-  return Math.round(value * 100 ) / 100
+const round = (value, multiplier = 100) => {
+  return Math.round(value * multiplier) / multiplier
 }

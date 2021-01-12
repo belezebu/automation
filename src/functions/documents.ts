@@ -1,10 +1,10 @@
-import {EOL} from 'os';
 import neatCsv from 'neat-csv'
 import {APIGatewayProxyHandler} from "aws-lambda";
 import {APIGatewayProxyEvent, APIGatewayProxyResult} from "aws-lambda/trigger/api-gateway-proxy";
 import Busboy from 'busboy';
 
 const separator = ";"
+const EOL = "\n"
 
 const notEmpty = <TValue>(value: TValue | null | undefined): value is TValue => {
     return value !== null && value !== undefined;

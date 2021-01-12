@@ -39,7 +39,6 @@ const locationSettings = {
   "SURRIBA": "SURRIBA",
   "TERRACEAMENTO": "TERRACEAMENTO",
   "ESTRUTURA_ANTI_GRANIZO_GEADA": "ESTRUTURA_ANTI_GRANIZO_GEADA",
-  "REGA": "REGA"
 }
 
 const mapDossierIdToSettingsFormId = {
@@ -309,10 +308,7 @@ const investmentIds = {
   "RIPAGEM": "RIPAGEM",
   "DESPEDREGA":"DESPEDREGA",
   "ESCARIFICACAO":"ESCARIFICACAO",
-  "MATERIA_ORGANICA_FERTILIZACAO":"MATERIA_ORGANICA_FERTILIZACAO",
-  "MATERIA_ORGANICA_DISTRIBUICAO":"MATERIA_ORGANICA_DISTRIBUICAO",
   "DESPEDREGA": "DESPEDREGA",
-  "ESCARIFICAO": "ESCARIFICAO",
   "CALCARIO_DISTRIBUICAO": "CALCARIO_DISTRIBUICAO",
   "CALCARIO": "CALCARIO",
   "MATERIA_ORGANICA": "MATERIA_ORGANICA",
@@ -369,19 +365,85 @@ const mapDossierIdToInvestmentItem = {
 
 
 const itemToInvestmentForm = {
-  // "COBERTURA": {
-  //   unitPrice: {
-  //     id: "projecto_plantacao_custo_simplificado_rubricas_valor_unitario_declarado_87"
-  //   },
-  //   vat: {
-  //     id: "projecto_plantacao_custo_simplificado_rubricas_tbc_taxa_iva_id_87_"
-  //   },
-  //   investmentDate: {
-  //     id: "projecto_plantacao_custo_simplificado_rubricas_data_prevista_realizacao_87_",
-  //     value: "2021-04-01"
-  //   }
-  // },
-  "MAO_DE_OBRA": {
+  [investmentIds.COBERTURA_SOLO]: {
+    unitPrice: {
+      id: "projecto_plantacao_custo_simplificado_rubricas_valor_unitario_declarado_87"
+    },
+    vat: {
+      id: "projecto_plantacao_custo_simplificado_rubricas_tbc_taxa_iva_id_87_"
+    },
+    investmentDate: {
+      id: "projecto_plantacao_custo_simplificado_rubricas_data_prevista_realizacao_87_",
+      value: "2021-03-01"
+    }
+  },
+  [investmentIds.DESINFECCAO_SOLO]: {
+    unitPrice: {
+      id: "projecto_plantacao_custo_simplificado_rubricas_tbc_taxa_iva_id_88_"
+    },
+    vat: {
+      id: "projecto_plantacao_custo_simplificado_rubricas_tbc_taxa_iva_id_88_"
+    },
+    investmentDate: {
+      id: "projecto_plantacao_custo_simplificado_rubricas_data_prevista_realizacao_88_",
+      value: "2021-03-01"
+    }
+  },
+  [investmentIds.DESPESAS_CONSOLIDACAO]: {
+    unitPrice: {
+      id: "projecto_plantacao_custo_simplificado_rubricas_tbc_taxa_iva_id_91_"
+    },
+    quantity: {
+      id: "quantidade_91"
+    },
+    vat: {
+      id: "projecto_plantacao_custo_simplificado_rubricas_tbc_taxa_iva_id_91_"
+    },
+    investmentDate: {
+      id: "projecto_plantacao_custo_simplificado_rubricas_data_prevista_realizacao_91_",
+      value: "2021-03-01"
+    }
+  },
+  [investmentIds.ESTEIOS_ARMACAO]: {
+    unitPrice: {
+      id: "projecto_plantacao_custo_simplificado_rubricas_valor_unitario_declarado_95"
+    },
+    quantity: {
+      id: "quantidade_95"
+    },
+    vat: {
+      id: "projecto_plantacao_custo_simplificado_rubricas_tbc_taxa_iva_id_95_"
+    },
+    investmentDate: {
+      id: "projecto_plantacao_custo_simplificado_rubricas_data_prevista_realizacao_95_",
+      value: "2021-03-01"
+    }
+  },
+  [investmentIds.ESTRUTURA_DE_SUPORTE_CRUZETA]: {
+    unitPrice: {
+      id: "projecto_plantacao_custo_simplificado_rubricas_valor_unitario_declarado_98"
+    },
+    vat: {
+      id: "projecto_plantacao_custo_simplificado_rubricas_tbc_taxa_iva_id_98_"
+    },
+    investmentDate: {
+      id: "projecto_plantacao_custo_simplificado_rubricas_data_prevista_realizacao_98_",
+      value: "2021-03-01"
+    }
+  },
+  [investmentIds.ESTRUTURA_DE_SUPORTE_PERGOLA]: {
+    unitPrice: {
+      id: "projecto_plantacao_custo_simplificado_rubricas_valor_unitario_declarado_99"
+    },
+    vat: {
+      id: "projecto_plantacao_custo_simplificado_rubricas_tbc_taxa_iva_id_99_"
+    },
+    investmentDate: {
+      id: "projecto_plantacao_custo_simplificado_rubricas_data_prevista_realizacao_99_",
+      value: "2021-03-01"
+    }
+  },
+  [investmentIds.MAO_DE_OBRA]: {
     unitPrice: {
       id: "projecto_plantacao_custo_simplificado_rubricas_valor_unitario_declarado_111"
     },
@@ -393,10 +455,10 @@ const itemToInvestmentForm = {
     },
     investmentDate: {
       id: "projecto_plantacao_custo_simplificado_rubricas_data_prevista_realizacao_111_",
-      value: "2021-04-01"
+      value: "2021-03-01"
     }
   },
-  "PLANTAS": {
+  [investmentIds.PLANTAS]: {
     unitPrice: {
       id: "projecto_plantacao_custo_simplificado_rubricas_valor_unitario_declarado_112"
     },
@@ -408,10 +470,10 @@ const itemToInvestmentForm = {
     },
     investmentDate: {
       id: "projecto_plantacao_custo_simplificado_rubricas_data_prevista_realizacao_112_",
-      value: "2021-04-01"
+      value: "2021-03-01"
     }
   },
-  "TUTORAGEM": {
+  [investmentIds.TUTORAGEM]: {
     unitPrice: {
       id: "projecto_plantacao_custo_simplificado_rubricas_valor_unitario_declarado_123"
     },
@@ -423,10 +485,91 @@ const itemToInvestmentForm = {
     },
     investmentDate: {
       id: "projecto_plantacao_custo_simplificado_rubricas_data_prevista_realizacao_123_",
-      value: "2021-04-01"
+      value: "2021-03-01"
     }
   },
-  "ADUBO_FERTILIZACAO": {
+  [investmentIds.CASCA_DE_PINHEIRO]: {
+    unitPrice: {
+      id: "projecto_plantacao_custo_simplificado_rubricas_valor_unitario_declarado_839"
+    },
+    quantity: {
+      id: "quantidade_839"
+    },
+    vat: {
+      id: "projecto_plantacao_custo_simplificado_rubricas_tbc_taxa_iva_id_839_"
+    },
+    investmentDate: {
+      id: "projecto_plantacao_custo_simplificado_rubricas_data_prevista_realizacao_839_",
+      value: "2021-03-01"
+    }
+  },
+  [investmentIds.SEMENTES]: {
+    unitPrice: {
+      id: "projecto_plantacao_custo_simplificado_rubricas_valor_unitario_declarado_114"
+    },
+    quantity: {
+      id: "quantidade_114"
+    },
+    vat: {
+      id: "projecto_plantacao_custo_simplificado_rubricas_tbc_taxa_iva_id_114_"
+    },
+    investmentDate: {
+      id: "projecto_plantacao_custo_simplificado_rubricas_data_prevista_realizacao_114_",
+      value: "2021-03-01"
+    }
+  },
+  [investmentIds.ROLAGEM]: {
+    unitPrice: {
+      id: "projecto_plantacao_custo_simplificado_rubricas_valor_unitario_declarado_2505"
+    },
+    vat: {
+      id: "projecto_plantacao_custo_simplificado_rubricas_tbc_taxa_iva_id_2505_"
+    },
+    investmentDate: {
+      id: "projecto_plantacao_custo_simplificado_rubricas_data_prevista_realizacao_2505_",
+      value: "2021-03-01"
+    }
+  },
+  [investmentIds.CONSTRUCAO_CAMALHOES]: {
+    unitPrice: {
+      id: "projecto_plantacao_custo_simplificado_rubricas_valor_unitario_declarado_2507"
+    },
+    vat: {
+      id: "projecto_plantacao_custo_simplificado_rubricas_tbc_taxa_iva_id_2507_"
+    },
+    investmentDate: {
+      id: "projecto_plantacao_custo_simplificado_rubricas_data_prevista_realizacao_2507_",
+      value: "2021-03-01"
+    }
+  },
+  [investmentIds.ENRELVAMENTO_CULTURAS]: {
+    unitPrice: {
+      id: "projecto_plantacao_custo_simplificado_rubricas_valor_unitario_declarado_93"
+    },
+    vat: {
+      id: "projecto_plantacao_custo_simplificado_rubricas_tbc_taxa_iva_id_93_"
+    },
+    investmentDate: {
+      id: "projecto_plantacao_custo_simplificado_rubricas_data_prevista_realizacao_93_",
+      value: "2021-03-01"
+    }
+  },
+  [investmentIds.SEMENTES_ENRELVAMENTO_CULTURAS]: {
+    unitPrice: {
+      id: "projecto_plantacao_custo_simplificado_rubricas_valor_unitario_declarado_115"
+    },
+    quantity: {
+      id: "quantidade_115"
+    },
+    vat: {
+      id: "projecto_plantacao_custo_simplificado_rubricas_tbc_taxa_iva_id_115_"
+    },
+    investmentDate: {
+      id: "projecto_plantacao_custo_simplificado_rubricas_data_prevista_realizacao_115_",
+      value: "2021-03-01"
+    }
+  },
+  [investmentIds.ADUBO_FERTILIZACAO]: {
     unitPrice: {
       id: "projecto_plantacao_custo_simplificado_rubricas_valor_unitario_declarado_84"
     },
@@ -441,7 +584,7 @@ const itemToInvestmentForm = {
       value: "2021-03-01"
     }
   },
-  "ADUBO_DISTRIBUICAO": {
+  [investmentIds.ADUBO_DISTRIBUICAO]: {
     unitPrice: {
       id: "projecto_plantacao_custo_simplificado_rubricas_valor_unitario_declarado_2504"
     },
@@ -456,7 +599,22 @@ const itemToInvestmentForm = {
       value: "2021-03-01"
     }
   },
-  "EQUIPAMENTO_REGA": {
+  [investmentIds.CORRETIVO_MINERAL_PH]: {
+    unitPrice: {
+      id: "projecto_plantacao_custo_simplificado_rubricas_valor_unitario_declarado_2759"
+    },
+    quantity: {
+      id: "quantidade_2759"
+    },
+    vat: {
+      id: "projecto_plantacao_custo_simplificado_rubricas_tbc_taxa_iva_id_2759_"
+    },
+    investmentDate: {
+      id: "projecto_plantacao_custo_simplificado_rubricas_data_prevista_realizacao_2759_",
+      value: "2021-03-01"
+    }
+  },
+  [investmentIds.EQUIPAMENTO_REGA]: {
     unitPrice: {
       id: "projecto_plantacao_custo_simplificado_rubricas_valor_unitario_declarado_2512"
     },
@@ -464,10 +622,53 @@ const itemToInvestmentForm = {
       id: "projecto_plantacao_custo_simplificado_rubricas_tbc_taxa_iva_id_2512_"
     },
     investmentDate: {
-      id: "projecto_plantacao_custo_simplificado_rubricas_data_prevista_realizacao_2512_"
+      id: "projecto_plantacao_custo_simplificado_rubricas_data_prevista_realizacao_2512_",
+      value: "2021-04-01"
     }
   },
-  "DESMATACAO": {
+  [investmentIds.ESTRUTURA_ANTI_GEADA]: {
+    unitPrice: {
+      id: "projecto_plantacao_custo_simplificado_rubricas_valor_unitario_declarado_96"
+    },
+    quantity: {
+      id: "quantidade_96"
+    },
+    vat: {
+      id: "projecto_plantacao_custo_simplificado_rubricas_tbc_taxa_iva_id_96_"
+    },
+    investmentDate: {
+      id: "projecto_plantacao_custo_simplificado_rubricas_data_prevista_realizacao_96_",
+      value: "2021-03-01"
+    }
+  },
+  [investmentIds.ESTRUTURA_ANTI_GRANIZO]: {
+    unitPrice: {
+      id: "projecto_plantacao_custo_simplificado_rubricas_valor_unitario_declarado_97"
+    },
+    vat: {
+      id: "projecto_plantacao_custo_simplificado_rubricas_tbc_taxa_iva_id_97_"
+    },
+    investmentDate: {
+      id: "projecto_plantacao_custo_simplificado_rubricas_data_prevista_realizacao_97_",
+      value: "2021-03-01"
+    }
+  },
+  [investmentIds.REDE_ANTI_PASSARO]: {
+    unitPrice: {
+      id: "projecto_plantacao_custo_simplificado_rubricas_valor_unitario_declarado_2041"
+    },
+    quantity: {
+      id: "quantidade_2041"
+    },
+    vat: {
+      id: "projecto_plantacao_custo_simplificado_rubricas_tbc_taxa_iva_id_2041_"
+    },
+    investmentDate: {
+      id: "projecto_plantacao_custo_simplificado_rubricas_data_prevista_realizacao_2041_",
+      value: "2021-03-01"
+    }
+  },
+  [investmentIds.DESMATACAO]: {
     unitPrice: {
       id: "projecto_plantacao_custo_simplificado_rubricas_valor_unitario_declarado_89"
     },
@@ -479,7 +680,43 @@ const itemToInvestmentForm = {
       value: "2021-02-01"
     }
   },
-  "DESPEDREGA": {
+  [investmentIds.SURRIBA]: {
+    unitPrice: {
+      id: "projecto_plantacao_custo_simplificado_rubricas_valor_unitario_declarado_2459"
+    },
+    vat: {
+      id: "projecto_plantacao_custo_simplificado_rubricas_tbc_taxa_iva_id_2459_"
+    },
+    investmentDate: {
+      id: "projecto_plantacao_custo_simplificado_rubricas_data_prevista_realizacao_2459_",
+      value: "2021-02-01"
+    }
+  },
+  [investmentIds.MOBILIZACAO_CHISEL]: {
+    unitPrice: {
+      id: "projecto_plantacao_custo_simplificado_rubricas_valor_unitario_declarado_104"
+    },
+    vat: {
+      id: "projecto_plantacao_custo_simplificado_rubricas_tbc_taxa_iva_id_104_"
+    },
+    investmentDate: {
+      id: "projecto_plantacao_custo_simplificado_rubricas_data_prevista_realizacao_104_",
+      value: "2021-02-01"
+    }
+  },
+  [investmentIds.RIPAGEM]: {
+    unitPrice: {
+      id: "projecto_plantacao_custo_simplificado_rubricas_valor_unitario_declarado_113"
+    },
+    vat: {
+      id: "projecto_plantacao_custo_simplificado_rubricas_tbc_taxa_iva_id_113_"
+    },
+    investmentDate: {
+      id: "projecto_plantacao_custo_simplificado_rubricas_data_prevista_realizacao_113_",
+      value: "2021-02-01"
+    }
+  },
+  [investmentIds.DESPEDREGA]: {
     unitPrice: {
       id: "projecto_plantacao_custo_simplificado_rubricas_valor_unitario_declarado_90"
     },
@@ -491,7 +728,7 @@ const itemToInvestmentForm = {
       value: "2021-02-01"
     }
   },
-  "ESCARIFICACAO": {
+  [investmentIds.ESCARIFICACAO]: {
     unitPrice: {
       id: "projecto_plantacao_custo_simplificado_rubricas_valor_unitario_declarado_94"
     },
@@ -503,9 +740,42 @@ const itemToInvestmentForm = {
       value: "2021-03-01"
     }
   },
-  "MATERIA_ORGANICA_FERTILIZACAO": {
+  [investmentIds.CALCARIO_DISTRIBUICAO]: {
+    unitPrice: {
+      id: "projecto_plantacao_custo_simplificado_rubricas_valor_unitario_declarado_2529"
+    },
+    quantity: {
+      id: "quantidade_2529"
+    },
+    vat: {
+      id: "projecto_plantacao_custo_simplificado_rubricas_tbc_taxa_iva_id_2529_"
+    },
+    investmentDate: {
+      id: "projecto_plantacao_custo_simplificado_rubricas_data_prevista_realizacao_2529_",
+      value: "2021-03-01"
+    }
+  },
+  [investmentIds.CALCARIO]: {
+    unitPrice: {
+      id: "projecto_plantacao_custo_simplificado_rubricas_valor_unitario_declarado_86"
+    },
+    quantity: {
+      id: "quantidade_86"
+    },
+    vat: {
+      id: "projecto_plantacao_custo_simplificado_rubricas_tbc_taxa_iva_id_86_"
+    },
+    investmentDate: {
+      id: "projecto_plantacao_custo_simplificado_rubricas_data_prevista_realizacao_86_",
+      value: "2021-03-01"
+    }
+  },
+  [investmentIds.MATERIA_ORGANICA]: {
     unitPrice: {
       id: "projecto_plantacao_custo_simplificado_rubricas_valor_unitario_declarado_103"
+    },
+    quantity: {
+      id: "quantidade_103"
     },
     vat: {
       id: "projecto_plantacao_custo_simplificado_rubricas_tbc_taxa_iva_id_103_"
@@ -515,9 +785,12 @@ const itemToInvestmentForm = {
       value: "2021-03-01"
     }
   },
-  "MATERIA_ORGANICA_DISTRIBUICAO": {
+  [investmentIds.MATERIA_ORGANICA_DISTRIBUICAO]: {
     unitPrice: {
       id: "projecto_plantacao_custo_simplificado_rubricas_valor_unitario_declarado_2760"
+    },
+    quantity: {
+      id: "quantidade_2760"
     },
     vat: {
       id: "projecto_plantacao_custo_simplificado_rubricas_tbc_taxa_iva_id_2760_"
@@ -527,7 +800,7 @@ const itemToInvestmentForm = {
       value: "2021-03-01"
     }
   },
-  "GRADAGEM": {
+  [investmentIds.GRADAGEM]: {
     unitPrice: {
       id: "projecto_plantacao_custo_simplificado_rubricas_valor_unitario_declarado_100"
     },
@@ -537,6 +810,33 @@ const itemToInvestmentForm = {
     investmentDate: {
       id: "projecto_plantacao_custo_simplificado_rubricas_data_prevista_realizacao_100_",
       value: "2021-03-01"
+    }
+  },
+  [investmentIds.DRENAGEM]: {
+    unitPrice: {
+      id: "projecto_plantacao_custo_simplificado_rubricas_valor_unitario_declarado_92"
+    },
+    quantity: {
+      id: "quantidade_92"
+    },
+    vat: {
+      id: "projecto_plantacao_custo_simplificado_rubricas_tbc_taxa_iva_id_92_"
+    },
+    investmentDate: {
+      id: "projecto_plantacao_custo_simplificado_rubricas_data_prevista_realizacao_92_",
+      value: "2021-02-01"
+    }
+  },
+  [investmentIds.TERRACEAMENTO]: {
+    unitPrice: {
+      id: "projecto_plantacao_custo_simplificado_rubricas_valor_unitario_declarado_117"
+    },
+    vat: {
+      id: "projecto_plantacao_custo_simplificado_rubricas_tbc_taxa_iva_id_117_"
+    },
+    investmentDate: {
+      id: "projecto_plantacao_custo_simplificado_rubricas_data_prevista_realizacao_117_",
+      value: "2021-02-01"
     }
   },
 }
