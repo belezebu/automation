@@ -52,7 +52,7 @@ function fillItemsInformation({items: investmentItemsById, area}) {
     const quantity = items.reduce((acc, {quantity}) => {
       return acc + mapper(quantity)
     }, 0)
-    changeText(itemToFormOption[formId].quantityInput.id, quantity.toFixed(2))
+    changeText(itemToFormOption[formId].quantityInput.id, quantity.toFixed(3))
   }
 
   Object.entries(investmentItemsById).forEach(([dossierId, items]) => {
