@@ -52,10 +52,10 @@ function saveLocation() {
       return
     }
     const chosenLocationNumber = dropdown.value
-    const {number, name, type, isNew, plantType, slope, watering, area, items} = locations.find(({number}) => number === chosenLocationNumber)
-    const itemsByDossierId = groupByDossierId(items)
+    const chosenLocation = locations.find(({number}) => number === chosenLocationNumber)
+    const itemsByDossierId = groupByDossierId(chosenLocation.items)
 
-    chrome.storage.local.set({location: JSON.stringify({number, name, type, isNew, plantType, slope, watering, area, items, items: itemsByDossierId})})
+    chrome.storage.local.set({location: JSON.stringify({...chosenLocation, items: itemsByDossierId})})
     chrome.tabs.query({active: true, currentWindow: true}, function (tabs) {
       chrome.tabs.sendMessage(tabs[0].id, {action: fillFormButton.id});
     });

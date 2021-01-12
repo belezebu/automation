@@ -12,11 +12,11 @@ function fillAgricultureType({isNew, watering}) {
   }
 }
 
-function fillWatering({watering, area, waterCounter, waterCatchment}) {
+function fillWatering({watering, area, waterCounters, waterCatchment}) {
   if (watering) {
     changeSelection(locationInformationToFormOption[locationProperties.SISTEMA_REGA]['selectInput']["id"], GOTEJADORES_AUTOCOMPENSANTES)
     changeText(locationInformationToFormOption[locationProperties.CONSUMO_ANO]['input']["id"], area * GOTEJADORES_CONSUMO_ANO)
-    changeText(locationInformationToFormOption[locationProperties.NUMERO_CONTADORES]['input']["id"], waterCounter)
+    changeText(locationInformationToFormOption[locationProperties.NUMERO_CONTADORES]['input']["id"], waterCounters)
     changeText(locationInformationToFormOption[locationProperties.NUMERO_CAPTACOES]['input']["id"], waterCatchment)
     changeCheckbox(itemToFormOption[locationSettings.REGA]["checkInput"]["id"])
   }
@@ -28,7 +28,7 @@ function fillDensity({isNew, items, area}) {
   }
 }
 
-function fillLocationInformation({isNew, plantType, slope, watering, area, items, waterCounter, waterCatchment, plantationYear}) {
+function fillLocationInformation({isNew, plantType, slope, watering, area, items, waterCounters, waterCatchment, plantationYear}) {
   changeText(locationInformationToFormOption["DECLIVE_TERRENO"]['input']['id'], slope)
   changeSelection(locationInformationToFormOption[locationProperties.TIPO_DE_HORIZONTE]['selectInput']['id'], isNew ? TIPO_DE_HORIZONTE.COM_HORIZONTES_COMPACTOS_OU_DUROS : TIPO_DE_HORIZONTE.SEM_HORIZONTES_COMPACTOS_OU_DUROS)
   changeText(locationInformationToFormOption[locationProperties.AREA]['input']['id'], area)
@@ -38,7 +38,7 @@ function fillLocationInformation({isNew, plantType, slope, watering, area, items
   changeText(locationInformationToFormOption[locationProperties.ANO_PLANTACAO]['input']['id'], plantationYear)
   fillAgricultureType({isNew, watering})
   changeText(locationInformationToFormOption[locationProperties.AREA_REGADA]['input']['id'], area)
-  fillWatering({watering, area, waterCounter, waterCatchment})
+  fillWatering({watering, area, waterCounters, waterCatchment})
 }
 
 function fillItemsInformation({items: investmentItemsById, area}) {
@@ -88,6 +88,6 @@ function fillItemsInformation({items: investmentItemsById, area}) {
 function fillInitialForm({location: rawLocation}) {
   const location = JSON.parse(rawLocation)
   console.log({location})
-  fillLocationInformation(location)
-  fillItemsInformation(location)
+  fillLocationInformation({...location, area: 0.144})
+  fillItemsInformation({...location, area: 0.144})
 }
