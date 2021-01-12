@@ -88,7 +88,7 @@ const buildLocation = async (location: string) => {
         vat: parseInt(sanitizeInput(vat)),
         totalCostWithVat: parseFloat(sanitizeInput(totalCostWithVat)),
     })
-    const { number, name, type, isNew, plantType, slope, watering, area } =  await buildlocationInformation(location);
+    const locationProperties = await buildlocationInformation(location);
     const rawItems = await neatCsv(location, {
         separator,
         skipLines: 3,
@@ -98,17 +98,10 @@ const buildLocation = async (location: string) => {
         .filter(({designation}) => isString(designation) && designation !== 'Total')
         .map(buildItem)
 
-    console.log('Successfully build location', { name })
+    console.log('Successfully build location', { name: locationProperties.name })
 
     return {
-        number,
-        name,
-        type,
-        isNew,
-        plantType,
-        slope,
-        watering,
-        area,
+        ...locationProperties,
         items
     }
 }
