@@ -58,7 +58,7 @@ const buildLocation = async (location: string) => {
         const rawItems = await neatCsv(locationInformation, {
             separator,
             skipLines: 1,
-            headers: ['', 'name', 'type', 'isNew', 'plantType', 'slope', 'watering', 'area']
+            headers: ['', 'name', 'type', 'slope', 'area', 'plantType', 'isNew', 'plantationYear', 'watering', 'waterCounters', 'waterCatchment']
         })
         const { name, type, isNew, plantType, slope, watering, area } = rawItems[0]
         return {

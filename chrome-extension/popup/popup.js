@@ -5,6 +5,8 @@ const getElement = id => $(`#${id}`) || $(id);
 const input = getElement('fileInput');
 const dropdown = getElement('localDropdown');
 const fillFormButton = getElement('fillFormButton');
+const fillInvestmentButton = getElement('fillInvestmentButton');
+
 
 function updateSelections({ locations }) {
   dropdown.innerHTML = locations.reduce((html, location) => {
@@ -55,11 +57,19 @@ function saveLocation() {
 
     chrome.storage.local.set({location: JSON.stringify({number, name, type, isNew, plantType, slope, watering, area, items, items: itemsByDossierId})})
     chrome.tabs.query({active: true, currentWindow: true}, function (tabs) {
-      chrome.tabs.sendMessage(tabs[0].id, {action: fillFormButton.value});
+      chrome.tabs.sendMessage(tabs[0].id, {action: fillFormButton.id});
     });
   }
   chrome.storage.local.get(["result"], fillFormEvent)
 };
+
+// Trigger the fill investment button
+function fillInvestment(){
+  chrome.tabs.query({active: true, currentWindow: true}, function (tabs) {
+    chrome.tabs.sendMessage(tabs[0].id, {action: fillInvestmentButton.id});
+  });
+}
+
 
 // Restores select box stored in chrome.storage
 function restoreSelections() {
@@ -79,6 +89,10 @@ input.addEventListener('change', onSelectFile, false);
 // Add a listener on your input
 // It will be triggered when a fill form button is clicked
 fillFormButton.addEventListener('click', saveLocation, false);
+
+// Add a listener on your input
+// It will be triggered when a fill form button is clicked
+fillInvestmentButton.addEventListener('click', fillInvestment, false);
 
 // Restore available selections
 document.addEventListener("DOMContentLoaded", restoreSelections);

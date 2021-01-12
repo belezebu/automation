@@ -12,7 +12,16 @@
   ],
   "content_scripts": [
     {
-      "js": [ "content/common.js", "content/index.js" ], "matches": [ "https://*.pdr-2020.pt/*"]
+      "js": [
+        "content/common.js",
+        "content/constants.js",
+        "content/investmentsForm.js",
+        "content/initialForm.js",
+        "content/index.js"
+      ],
+      "matches": [
+        "https://*.pdr-2020.pt/*"
+      ]
     }
   ],
   "browser_action": {
