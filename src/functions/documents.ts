@@ -14,7 +14,7 @@ const isString = (value: string | null | undefined): value is string => {
     return typeof value === 'string' && value.length > 0
 }
 
-const sanitizeInput = (value: string) => value.replace(/[ €%]/g, "").replace(",", ".")
+const sanitizeInput = (value: string) => value.replace(/[ ,€%]/g, "")
 
 const round = (value: number) => Math.round(value * 100) / 100
 
@@ -179,7 +179,7 @@ const documentsHandler: APIGatewayProxyHandler = async (event, context) => {
     const parsedLocations = await Promise.all(locations)
     return {
         statusCode: 200,
-        headers: {'Access-Control-Allow-Origin': '*'},
+        headers: {'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json'},
         body: JSON.stringify({locations: parsedLocations, personalInformation})
     } as APIGatewayProxyResult;
 }
