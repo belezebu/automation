@@ -677,7 +677,7 @@ const itemToInvestmentForm = {
     },
     investmentDate: {
       id: "projecto_plantacao_custo_simplificado_rubricas_data_prevista_realizacao_89_",
-      value: "2021-02-01"
+      value: "2021-02-06"
     }
   },
   [investmentIds.SURRIBA]: {
@@ -689,7 +689,7 @@ const itemToInvestmentForm = {
     },
     investmentDate: {
       id: "projecto_plantacao_custo_simplificado_rubricas_data_prevista_realizacao_2459_",
-      value: "2021-02-01"
+      value: "2021-02-06"
     }
   },
   [investmentIds.MOBILIZACAO_CHISEL]: {
@@ -701,7 +701,7 @@ const itemToInvestmentForm = {
     },
     investmentDate: {
       id: "projecto_plantacao_custo_simplificado_rubricas_data_prevista_realizacao_104_",
-      value: "2021-02-01"
+      value: "2021-02-06"
     }
   },
   [investmentIds.RIPAGEM]: {
@@ -713,7 +713,7 @@ const itemToInvestmentForm = {
     },
     investmentDate: {
       id: "projecto_plantacao_custo_simplificado_rubricas_data_prevista_realizacao_113_",
-      value: "2021-02-01"
+      value: "2021-02-06"
     }
   },
   [investmentIds.DESPEDREGA]: {
@@ -725,7 +725,7 @@ const itemToInvestmentForm = {
     },
     investmentDate: {
       id: "projecto_plantacao_custo_simplificado_rubricas_data_prevista_realizacao_90_",
-      value: "2021-02-01"
+      value: "2021-02-06"
     }
   },
   [investmentIds.ESCARIFICACAO]: {
@@ -824,7 +824,7 @@ const itemToInvestmentForm = {
     },
     investmentDate: {
       id: "projecto_plantacao_custo_simplificado_rubricas_data_prevista_realizacao_92_",
-      value: "2021-02-01"
+      value: "2021-02-06"
     }
   },
   [investmentIds.TERRACEAMENTO]: {
@@ -836,7 +836,7 @@ const itemToInvestmentForm = {
     },
     investmentDate: {
       id: "projecto_plantacao_custo_simplificado_rubricas_data_prevista_realizacao_117_",
-      value: "2021-02-01"
+      value: "2021-02-06"
     }
   },
 }
