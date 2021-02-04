@@ -112,7 +112,9 @@ const buildPersonalInformation = (data: string) => {
         .map(line => line?.split(separator).map(line => line.trim()).filter(value => isString(value) && value !== 'undefined'))
         .filter(notEmpty)
         .reduce<Record<string, string>>((accumulator, [key, value]) => {
-            accumulator[key.toLowerCase()] = value
+            if(typeof key === 'string') {
+                accumulator[key.toLowerCase()] = value
+            }
             return accumulator
         }, {});
 
