@@ -2,8 +2,9 @@ import neatCsv from 'neat-csv'
 import {APIGatewayProxyHandler} from "aws-lambda";
 import {APIGatewayProxyEvent, APIGatewayProxyResult} from "aws-lambda/trigger/api-gateway-proxy";
 import Busboy from 'busboy';
-
-const separator = ","
+const parser = require('lambda-multipart-parser');
+import xlsx from 'node-xlsx';
+const separator = ";"
 const EOL = "\n"
 
 const notEmpty = <TValue>(value: TValue | null | undefined): value is TValue => {
@@ -54,6 +55,11 @@ type TotalItem = {
 type Item = DossierItem | TotalItem
 
 const buildLocation = async (location: string) => {
+
+    console.log("start location")
+    console.log(location)
+    console.log("end")
+
     const buildlocationInformation = async (location: string): Promise<Location>  => {
         const locationLines = location.split(EOL)
         const number = locationLines?.[0]?.split(separator)[0]
@@ -63,6 +69,7 @@ const buildLocation = async (location: string) => {
             skipLines: 1,
             headers: ['', 'name', 'type', 'slope', 'area', 'plantType', 'isNew', 'plantationYear', 'watering', 'waterCounters', 'waterCatchment']
         })
+
         const { name, type, isNew, plantType, slope, watering, area, waterCounters, waterCatchment, plantationYear } = rawItems[0]
         return {
             number,
@@ -85,7 +92,7 @@ const buildLocation = async (location: string) => {
         quantity: parseInt(quantity),
         unitCost: parseFloat(sanitizeInput(unitCost)),
         totalCost: parseFloat(sanitizeInput(totalCost)),
-        vat: parseInt(sanitizeInput(vat)),
+        vat: parseFloat(vat) * 100,
         totalCostWithVat: parseFloat(sanitizeInput(totalCostWithVat)),
     })
     const locationProperties = await buildlocationInformation(location);
@@ -94,6 +101,8 @@ const buildLocation = async (location: string) => {
         skipLines: 3,
         headers: ['dossierId', 'designation', 'unit', 'quantity', 'unitCost', 'totalCost', 'vat', 'totalCostWithVat']
     })
+
+    console.log('Raw items', rawItems)
     const items = rawItems
         .filter(({designation}) => isString(designation) && designation !== 'Total')
         .map(buildItem)
@@ -125,47 +134,11 @@ type File = {
     filename?: string,
     contentType?: string
 }
-
-const parseUploadedFile = ({body, headers, isBase64Encoded}: APIGatewayProxyEvent): Promise<File> => new Promise((resolve, reject) => {
-    const contentType = headers['Content-Type'] || headers['content-type'];
-    const busboy = new Busboy({
-        headers: {
-            'content-type': contentType,
-        }
-    });
-
-    const result: File = {};
-
-    busboy.on('file', (fieldname, file, filename, encoding, mimetype) => {
-        file.on('data', data => {
-            result.file += data;
-        })
-
-        file.on('end', () => {
-            result.filename = filename;
-            result.contentType = mimetype;
-        });
-    });
-
-    busboy.on('error', (error: any) => reject(`Parse error: ${error}`));
-    busboy.on('finish', () => resolve(result));
-
-    console.log({ isBase64Encoded })
-    busboy.write(body || '', isBase64Encoded ? 'base64' : 'utf-8');
-    busboy.end();
-});
-
 const documentsHandler: APIGatewayProxyHandler = async (event, context) => {
-    const {file} = await parseUploadedFile(event)
-    if (!file) {
-        const errorMessage = 'File does not exists'
-        return {
-            statusCode: 404,
-            headers: {'Access-Control-Allow-Origin': '*'},
-            body: JSON.stringify({errorMessage})
-        };
-    }
-    const data = file.toString()
+    const result = await parser.parse(event);
+    const workSheetsFromBuffer =  xlsx.parse(result.files[0].content)
+    // @ts-ignore
+    const data = workSheetsFromBuffer[0].data.filter( (line) => line.length > 0).map( (line) => line.join(separator) ).join("\n")
     const personalInformation = buildPersonalInformation(data)
 
     console.log({ data })
@@ -177,6 +150,7 @@ const documentsHandler: APIGatewayProxyHandler = async (event, context) => {
         .map(location => buildLocation(location))
 
     const parsedLocations = await Promise.all(locations)
+
     return {
         statusCode: 200,
         headers: {'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json'},
