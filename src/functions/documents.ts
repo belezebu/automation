@@ -27,8 +27,8 @@ type Location = {
     plantType: string
     slope: number
     watering: boolean
-    waterCounters: string
-    waterCatchment: string
+    waterCounters: number
+    waterCatchment: number
     plantationYear: string
     area: number
 }
@@ -37,7 +37,7 @@ type BaseItem = {
     dossierId: string,
     designation: string,
     totalCost: number,
-    totalCostWithVat: number
+    totalCostWithVat: number,
 }
 
 type DossierItem = {
@@ -45,6 +45,7 @@ type DossierItem = {
     quantity: number,
     unitCost: number,
     vat: number,
+    investmentDate: string
 } & BaseItem
 
 type TotalItem = {
@@ -71,21 +72,22 @@ const buildLocation = async (location: string) => {
         })
 
         const { name, type, isNew, plantType, slope, watering, area, waterCounters, waterCatchment, plantationYear } = rawItems[0]
+        const hasWatering = watering === 'Sim'
         return {
             number,
             name,
             type,
             isNew: isNew === 'Sim' ,
             plantType,
-            watering: watering === 'Sim',
+            watering: hasWatering,
             slope: parseInt(slope),
             area: parseFloat(sanitizeInput(area)),
-            waterCounters,
-            waterCatchment,
+            waterCounters: hasWatering ? parseInt(waterCounters || "0") : 0,
+            waterCatchment: hasWatering ? parseInt(waterCatchment || "0") : 0,
             plantationYear
         }
     }
-    const buildItem = ({dossierId, designation, unit, quantity, unitCost, totalCost, vat, totalCostWithVat}: Record<string, string>): Item => ({
+    const buildItem = ({dossierId, designation, unit, quantity, unitCost, totalCost, vat, totalCostWithVat, investmentDate}: Record<string, string>): Item => ({
         dossierId,
         designation,
         unit,
@@ -94,12 +96,13 @@ const buildLocation = async (location: string) => {
         totalCost: parseFloat(sanitizeInput(totalCost)),
         vat: parseFloat(vat) * 100,
         totalCostWithVat: parseFloat(sanitizeInput(totalCostWithVat)),
+        investmentDate
     })
     const locationProperties = await buildlocationInformation(location);
     const rawItems = await neatCsv(location, {
         separator,
         skipLines: 3,
-        headers: ['dossierId', 'designation', 'unit', 'quantity', 'unitCost', 'totalCost', 'vat', 'totalCostWithVat']
+        headers: ['dossierId', 'designation', 'unit', 'quantity', 'unitCost', 'totalCost', 'vat', 'totalCostWithVat', 'investmentDate']
     })
 
     console.log('Raw items', rawItems)

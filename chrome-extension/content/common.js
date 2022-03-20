@@ -28,3 +28,7 @@ const changeRadio = (id) => {
 const round = (value, multiplier = 100) => {
   return Math.round(value * multiplier) / multiplier
 }
+
+const changeFocus = (id) => {
+  getElement(id).focus();
+}

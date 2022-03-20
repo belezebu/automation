@@ -377,7 +377,7 @@ const itemToInvestmentForm = {
     },
     investmentDate: {
       id: "projecto_plantacao_custo_simplificado_rubricas_data_prevista_realizacao_87_",
-      value: "2021-03-01"
+      value: "2022-04-01"
     }
   },
   [investmentIds.DESINFECCAO_SOLO]: {
@@ -389,7 +389,7 @@ const itemToInvestmentForm = {
     },
     investmentDate: {
       id: "projecto_plantacao_custo_simplificado_rubricas_data_prevista_realizacao_88_",
-      value: "2021-03-01"
+      value: "2022-04-01"
     }
   },
   [investmentIds.DESPESAS_CONSOLIDACAO]: {
@@ -404,7 +404,7 @@ const itemToInvestmentForm = {
     },
     investmentDate: {
       id: "projecto_plantacao_custo_simplificado_rubricas_data_prevista_realizacao_91_",
-      value: "2021-03-01"
+      value: "2022-04-01"
     }
   },
   [investmentIds.ESTEIOS_ARMACAO]: {
@@ -419,7 +419,7 @@ const itemToInvestmentForm = {
     },
     investmentDate: {
       id: "projecto_plantacao_custo_simplificado_rubricas_data_prevista_realizacao_95_",
-      value: "2021-03-01"
+      value: "2022-04-01"
     }
   },
   [investmentIds.ESTRUTURA_DE_SUPORTE_CRUZETA]: {
@@ -431,7 +431,7 @@ const itemToInvestmentForm = {
     },
     investmentDate: {
       id: "projecto_plantacao_custo_simplificado_rubricas_data_prevista_realizacao_98_",
-      value: "2021-03-01"
+      value: "2022-04-01"
     }
   },
   [investmentIds.ESTRUTURA_DE_SUPORTE_PERGOLA]: {
@@ -443,7 +443,7 @@ const itemToInvestmentForm = {
     },
     investmentDate: {
       id: "projecto_plantacao_custo_simplificado_rubricas_data_prevista_realizacao_99_",
-      value: "2021-03-01"
+      value: "2022-04-01"
     }
   },
   [investmentIds.MAO_DE_OBRA]: {
@@ -458,7 +458,7 @@ const itemToInvestmentForm = {
     },
     investmentDate: {
       id: "projecto_plantacao_custo_simplificado_rubricas_data_prevista_realizacao_111_",
-      value: "2021-03-01"
+      value: "2022-04-01"
     }
   },
   [investmentIds.PLANTAS]: {
@@ -473,7 +473,7 @@ const itemToInvestmentForm = {
     },
     investmentDate: {
       id: "projecto_plantacao_custo_simplificado_rubricas_data_prevista_realizacao_112_",
-      value: "2021-03-01"
+      value: "2022-04-01"
     }
   },
   [investmentIds.TUTORAGEM]: {
@@ -488,7 +488,7 @@ const itemToInvestmentForm = {
     },
     investmentDate: {
       id: "projecto_plantacao_custo_simplificado_rubricas_data_prevista_realizacao_123_",
-      value: "2021-03-01"
+      value: "2022-04-01"
     }
   },
   [investmentIds.CASCA_DE_PINHEIRO]: {
@@ -503,7 +503,7 @@ const itemToInvestmentForm = {
     },
     investmentDate: {
       id: "projecto_plantacao_custo_simplificado_rubricas_data_prevista_realizacao_839_",
-      value: "2021-03-01"
+      value: "2022-04-01"
     }
   },
   [investmentIds.SEMENTES]: {
@@ -518,7 +518,7 @@ const itemToInvestmentForm = {
     },
     investmentDate: {
       id: "projecto_plantacao_custo_simplificado_rubricas_data_prevista_realizacao_114_",
-      value: "2021-03-01"
+      value: "2022-04-01"
     }
   },
   [investmentIds.ROLAGEM]: {
@@ -530,7 +530,7 @@ const itemToInvestmentForm = {
     },
     investmentDate: {
       id: "projecto_plantacao_custo_simplificado_rubricas_data_prevista_realizacao_2505_",
-      value: "2021-03-01"
+      value: "2022-04-01"
     }
   },
   [investmentIds.CONSTRUCAO_CAMALHOES]: {
@@ -542,7 +542,7 @@ const itemToInvestmentForm = {
     },
     investmentDate: {
       id: "projecto_plantacao_custo_simplificado_rubricas_data_prevista_realizacao_2507_",
-      value: "2021-03-01"
+      value: "2022-04-01"
     }
   },
   [investmentIds.ENRELVAMENTO_CULTURAS]: {
@@ -554,7 +554,7 @@ const itemToInvestmentForm = {
     },
     investmentDate: {
       id: "projecto_plantacao_custo_simplificado_rubricas_data_prevista_realizacao_93_",
-      value: "2021-03-01"
+      value: "2022-04-01"
     }
   },
   [investmentIds.SEMENTES_ENRELVAMENTO_CULTURAS]: {
@@ -569,7 +569,7 @@ const itemToInvestmentForm = {
     },
     investmentDate: {
       id: "projecto_plantacao_custo_simplificado_rubricas_data_prevista_realizacao_115_",
-      value: "2021-03-01"
+      value: "2022-04-01"
     }
   },
   [investmentIds.ADUBO_FERTILIZACAO]: {
@@ -584,7 +584,7 @@ const itemToInvestmentForm = {
     },
     investmentDate: {
       id: "projecto_plantacao_custo_simplificado_rubricas_data_prevista_realizacao_84_",
-      value: "2021-03-01"
+      value: "2022-04-01"
     }
   },
   [investmentIds.ADUBO_DISTRIBUICAO]: {
@@ -599,7 +599,7 @@ const itemToInvestmentForm = {
     },
     investmentDate: {
       id: "projecto_plantacao_custo_simplificado_rubricas_data_prevista_realizacao_2504_",
-      value: "2021-03-01"
+      value: "2022-04-01"
     }
   },
   [investmentIds.CORRETIVO_MINERAL_PH]: {
@@ -614,7 +614,7 @@ const itemToInvestmentForm = {
     },
     investmentDate: {
       id: "projecto_plantacao_custo_simplificado_rubricas_data_prevista_realizacao_2759_",
-      value: "2021-03-01"
+      value: "2022-04-01"
     }
   },
   [investmentIds.EQUIPAMENTO_REGA]: {
@@ -626,7 +626,7 @@ const itemToInvestmentForm = {
     },
     investmentDate: {
       id: "projecto_plantacao_custo_simplificado_rubricas_data_prevista_realizacao_2512_",
-      value: "2021-04-01"
+      value: "2022-04-01"
     }
   },
   [investmentIds.ESTRUTURA_ANTI_GEADA]: {
@@ -641,7 +641,7 @@ const itemToInvestmentForm = {
     },
     investmentDate: {
       id: "projecto_plantacao_custo_simplificado_rubricas_data_prevista_realizacao_96_",
-      value: "2021-03-01"
+      value: "2022-04-01"
     }
   },
   [investmentIds.ESTRUTURA_ANTI_GRANIZO]: {
@@ -653,7 +653,7 @@ const itemToInvestmentForm = {
     },
     investmentDate: {
       id: "projecto_plantacao_custo_simplificado_rubricas_data_prevista_realizacao_97_",
-      value: "2021-03-01"
+      value: "2022-04-01"
     }
   },
   [investmentIds.REDE_ANTI_PASSARO]: {
@@ -668,7 +668,7 @@ const itemToInvestmentForm = {
     },
     investmentDate: {
       id: "projecto_plantacao_custo_simplificado_rubricas_data_prevista_realizacao_2041_",
-      value: "2021-03-01"
+      value: "2022-04-01"
     }
   },
   [investmentIds.DESMATACAO]: {
@@ -680,7 +680,7 @@ const itemToInvestmentForm = {
     },
     investmentDate: {
       id: "projecto_plantacao_custo_simplificado_rubricas_data_prevista_realizacao_89_",
-      value: "2021-02-06"
+      value: "2022-04-01"
     }
   },
   [investmentIds.SURRIBA]: {
@@ -692,7 +692,7 @@ const itemToInvestmentForm = {
     },
     investmentDate: {
       id: "projecto_plantacao_custo_simplificado_rubricas_data_prevista_realizacao_2459_",
-      value: "2021-02-06"
+      value: "2022-04-01"
     }
   },
   [investmentIds.MOBILIZACAO_CHISEL]: {
@@ -704,7 +704,7 @@ const itemToInvestmentForm = {
     },
     investmentDate: {
       id: "projecto_plantacao_custo_simplificado_rubricas_data_prevista_realizacao_104_",
-      value: "2021-02-06"
+      value: "2022-04-01"
     }
   },
   [investmentIds.RIPAGEM]: {
@@ -716,7 +716,7 @@ const itemToInvestmentForm = {
     },
     investmentDate: {
       id: "projecto_plantacao_custo_simplificado_rubricas_data_prevista_realizacao_113_",
-      value: "2021-02-06"
+      value: "2022-04-01"
     }
   },
   [investmentIds.DESPEDREGA]: {
@@ -728,7 +728,7 @@ const itemToInvestmentForm = {
     },
     investmentDate: {
       id: "projecto_plantacao_custo_simplificado_rubricas_data_prevista_realizacao_90_",
-      value: "2021-02-06"
+      value: "2022-04-01"
     }
   },
   [investmentIds.ESCARIFICACAO]: {
@@ -740,7 +740,7 @@ const itemToInvestmentForm = {
     },
     investmentDate: {
       id: "projecto_plantacao_custo_simplificado_rubricas_data_prevista_realizacao_94_",
-      value: "2021-03-01"
+      value: "2022-04-01"
     }
   },
   [investmentIds.CALCARIO_DISTRIBUICAO]: {
@@ -755,7 +755,7 @@ const itemToInvestmentForm = {
     },
     investmentDate: {
       id: "projecto_plantacao_custo_simplificado_rubricas_data_prevista_realizacao_2529_",
-      value: "2021-03-01"
+      value: "2022-04-01"
     }
   },
   [investmentIds.CALCARIO]: {
@@ -770,7 +770,7 @@ const itemToInvestmentForm = {
     },
     investmentDate: {
       id: "projecto_plantacao_custo_simplificado_rubricas_data_prevista_realizacao_86_",
-      value: "2021-03-01"
+      value: "2022-04-01"
     }
   },
   [investmentIds.MATERIA_ORGANICA]: {
@@ -785,7 +785,7 @@ const itemToInvestmentForm = {
     },
     investmentDate: {
       id: "projecto_plantacao_custo_simplificado_rubricas_data_prevista_realizacao_103_",
-      value: "2021-03-01"
+      value: "2022-04-01"
     }
   },
   [investmentIds.MATERIA_ORGANICA_DISTRIBUICAO]: {
@@ -800,7 +800,7 @@ const itemToInvestmentForm = {
     },
     investmentDate: {
       id: "projecto_plantacao_custo_simplificado_rubricas_data_prevista_realizacao_2760_",
-      value: "2021-03-01"
+      value: "2022-04-01"
     }
   },
   [investmentIds.GRADAGEM]: {
@@ -812,7 +812,7 @@ const itemToInvestmentForm = {
     },
     investmentDate: {
       id: "projecto_plantacao_custo_simplificado_rubricas_data_prevista_realizacao_100_",
-      value: "2021-03-01"
+      value: "2022-04-01"
     }
   },
   [investmentIds.DRENAGEM]: {
@@ -827,7 +827,7 @@ const itemToInvestmentForm = {
     },
     investmentDate: {
       id: "projecto_plantacao_custo_simplificado_rubricas_data_prevista_realizacao_92_",
-      value: "2021-02-06"
+      value: "2022-04-01"
     }
   },
   [investmentIds.TERRACEAMENTO]: {
@@ -839,7 +839,7 @@ const itemToInvestmentForm = {
     },
     investmentDate: {
       id: "projecto_plantacao_custo_simplificado_rubricas_data_prevista_realizacao_117_",
-      value: "2021-02-06"
+      value: "2022-04-01"
     }
   },
 }
